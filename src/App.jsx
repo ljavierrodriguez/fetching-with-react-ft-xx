@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaHtml5 } from 'react-icons/fa'
 import * as config from './config';
 import Pagination from 'react-js-pagination';
+import injectContext, { Context } from './store/appContext';
 
 const App = () => {
-
-    const [characters, setCharacters] = useState(null);
+    const { store: { characters }, actions } = useContext(Context);
+    //const [characters, setCharacters] = useState(null);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-
-        getCharacter(config.API_URL);
-
+        actions.getCharacters(config.API_URL);
+        //getCharacter(config.API_URL);
     }, [])
 
     const getCharacter = (url, options = { method: 'GET', headers: { 'Content-Type': 'application/json' } }) => {
@@ -24,7 +24,8 @@ const App = () => {
     }
 
     const handlePageChange = page => {
-        getCharacter(`${config.API_URL}?page=${page}`);
+        //getCharacter(`${config.API_URL}?page=${page}`);
+        actions.getCharacters(`${config.API_URL}?page=${page}`);
         setPage(page);
     }
 
@@ -138,4 +139,4 @@ const App = () => {
     )
 }
 
-export default App
+export default injectContext(App)
