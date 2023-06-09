@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import getState from "./flux";
-//import * as config from '../config';
+import * as config from '../config';
 
 export const Context = createContext(null);
 
@@ -18,6 +18,7 @@ const injectContext = (PassedCompoonent) => {
 
         useEffect(() => {
             //state.actions.getCharacters(config.API_URL);
+            state.actions.getAxiosCharacters(config.API_URL);
         }, [])
 
         return (
